@@ -11,10 +11,12 @@ import contextlib
 import copy
 import numpy as np
 import torch
+import json
 
 from pycocotools.cocoeval import COCOeval
 from pycocotools.coco import COCO
 import pycocotools.mask as mask_util
+from collections import defaultdict
 
 from util.misc import all_gather
 
@@ -54,6 +56,7 @@ class CocoEvaluator(object):
             img_ids, eval_imgs = evaluate(coco_eval)
 
             self.eval_imgs[iou_type].append(eval_imgs)
+
 
     def synchronize_between_processes(self):
         for iou_type in self.iou_types:
